@@ -2,6 +2,7 @@ import pool from '../lib/utils/pool';
 
 export default class Order {
   id;
+  name;
   quantity;
 
   constructor(row) {
@@ -11,7 +12,7 @@ export default class Order {
 
   static async insert({ quantity }) {
     const { rows } = await pool.query(
-      'INSERT INTO orders (quantity) VALUES ($1) RETURNING *',
+      'INSERT INTO trees (quantity) VALUES ($1) RETURNING *',
       [quantity]
     );
 
