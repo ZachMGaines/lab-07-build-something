@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS ;
+DROP TABLE IF EXISTS trees;
 
 CREATE TABLE trees (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name TEXT NOT NULL,
-  quantity INTEGER (quantity > 0)
-);
+  quantity INTEGER CHECK (quantity > 0)
+)

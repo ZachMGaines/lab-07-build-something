@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import Order from '../models/Order.js';
+import Tree from '../models/Tree.js';
 import OrderService from '../services/OrderService.js';
 
 export default Router()
   .post('/', async (req, res, next) => {
     try {
+      console.log(req.body);
       const order = await OrderService.create(req.body);
       res.send(order);
     } catch (err) {
@@ -14,7 +15,7 @@ export default Router()
 
   .get('/:id', async (req, res, next) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await Tree.findById(req.params.id);
       res.send(order);
     } catch (err) {
       next(err);

@@ -1,12 +1,12 @@
 import { sendSms } from '../lib/utils/twilio.js';
-import Order from '../models/Order.js';
+import Tree from '../models/Tree.js';
 
 export default class OrderService {
-  static async create({ quantity }) {
-    const order = await Order.insert({ quantity });
+  static async create({ name, quantity }) {
+    const order = await Tree.insert({ name, quantity });
     await sendSms(
       process.env.ORDER_HANDLER_NUMBER,
-      `New Order received for ${quantity}`
+      `New Order received of ${name} with quantity of ${quantity}`
     );
 
     return order;
