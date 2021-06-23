@@ -53,7 +53,7 @@ describe('demo routes', () => {
     expect(res.body).toEqual(willow);
   });
 
-  it.only('updates a tree via PUT', async () => {
+  it('updates a tree via PUT', async () => {
     const willow = await Tree.insert({
       name: 'willow',
       quantity: 1
