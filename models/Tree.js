@@ -28,4 +28,27 @@ export default class Tree {
     return new Tree(rows[0]);
   }
 
+  static async findAll() {
+    const { rows } = await pool.query('SELECT * FROM trees');
+    return rows.map(row => new Tree(row));
+  }
+
+  static async delete(id) {
+    const { rows } = await pool.query(`
+    DELETE FROM trees
+    WHERE id = $1
+    RETURNING *`, [id]);
+
+    return new Tree(rows[0]);
+  }
+
+  static async put(name, quantity, id) {
+    const { rows } = await pool.query(`
+    UPDATE trees
+    SET name = $1,
+    quantity = $2
+    WHERE id = $3
+    RETURNING *`, [name, quantity, id]);
+    return new Tree(rows[0]);
+  }
 }

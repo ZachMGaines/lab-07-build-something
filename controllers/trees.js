@@ -3,6 +3,7 @@ import Tree from '../models/Tree.js';
 import OrderService from '../services/OrderService.js';
 
 export default Router()
+
   .post('/', async (req, res, next) => {
     try {
       console.log(req.body);
@@ -19,5 +20,30 @@ export default Router()
       res.send(order);
     } catch (err) {
       next(err);
+    }
+  })
+
+  .get('/', async (req, res) => {
+    try {
+      const trees = await Tree.findAll();
+      res.send(trees);
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  })
+  .delete('/:id', async (req, res) => {
+    try {
+      const trees = await OrderService.delete(req.params.id);
+      res.send(trees);
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  })
+  .put('/:id', async (req, res) => {
+    try {
+      const trees = await OrderService.put(req.body.name, req.body.quantity, req.params.id);
+      res.send(trees);
+    } catch (err) {
+      res.status(500).send({ error: err.message });
     }
   });
