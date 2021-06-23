@@ -41,7 +41,9 @@ export default Router()
   })
   .put('/:id', async (req, res) => {
     try {
-      const trees = await OrderService.put(req.body.name, req.body.quantity, req.params.id);
+      console.log(req.body);
+      const trees = await OrderService.update(req.body.name, req.body.quantity, req.body.id);
+
       res.send(trees);
     } catch (err) {
       res.status(500).send({ error: err.message });

@@ -11,4 +11,23 @@ export default class OrderService {
 
     return order;
   }
+
+  static async delete(id) {
+    const order = await Tree.delete(id);
+    await sendSms(
+      process.env.ORDER_HANDLER_NUMBER,
+      `Your order has been deleted ${order.name} of with quantity of ${order.quantity}`
+    );
+    return order;
+  }
+
+  static async update(name, quantity, id) {
+    console.log(name, quantity, id);
+    const order = await Tree.update(name, quantity, id);
+    await sendSms(
+      process.env.ORDER_HANDLER_NUMBER,
+      `Your order has been updated with ${order.name} quantity of ${order.quantity}`
+    );
+    return order;
+  }
 }

@@ -46,10 +46,28 @@ describe('demo routes', () => {
     const willow = await Tree.insert({
       name: 'willow',
       quantity: 4
-    })
+    });
     const res = await request(app)
-      .delete(`/api/v1/orders/1`)
-    expect(res.body).toEqual(willow)
-  }
+      .delete(`/api/v1/orders/${willow.id}`);
+
+    expect(res.body).toEqual(willow);
+  });
+
+  it.only('updates a tree via PUT', async () => {
+    const willow = await Tree.insert({
+      name: 'willow',
+      quantity: 1
+    });
+    willow.quantity = 5;
+
+    const res = await request(app)
+      .put(`/api/v1/orders/${willow.id}`)
+      .send(willow);
+    expect(res.body).toEqual({
+      id: '1',
+      name: 'willow',
+      quantity: 5
+    });
+  });
 
 });

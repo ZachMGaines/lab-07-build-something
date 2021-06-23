@@ -12,7 +12,7 @@ export default class Tree {
   }
 
   static async insert({ name, quantity }) {
-    console.log(name, quantity);
+
     const { rows } = await pool.query(
       'INSERT INTO trees (name, quantity) VALUES ($1, $2) RETURNING *',
       [name, quantity]
@@ -42,13 +42,16 @@ export default class Tree {
     return new Tree(rows[0]);
   }
 
-  static async put(name, quantity, id) {
+  static async update(name, quantity, id) {
+    console.log(name, quantity, id);
     const { rows } = await pool.query(`
     UPDATE trees
     SET name = $1,
     quantity = $2
     WHERE id = $3
     RETURNING *`, [name, quantity, id]);
+
     return new Tree(rows[0]);
+
   }
 }
